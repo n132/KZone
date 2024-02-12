@@ -26,9 +26,11 @@ umount  /mnt/
 # Compile Linux Kernel
 
 
-Knowledge Base: https://n132.github.io/2023/09/29/Kernel-Pwn-Env.html
+Use this [script][4] to compile the kernel.
 
-If it's possible. Try not to use your host's config. If you use your host's config (for example, Ubuntu) to compile the kernel, you may need to compile the modules and copy them to the disk imge, which may also require you to expand your disk image to store these compiled modules: aka modify the script and recreate the disk. Kindly attach the commands you may need if you really want to use the oldconfig:
+Example, `./build.sh v5.4.268`.
+
+Sometimes (v5.4.268 is fine) you need to patch the default config for some new versions or compile the modules: You may need to compile the modules and copy them to the disk imge, which may also require you to expand your disk image to store these compiled modules: aka modify the script and recreate the disk. Kindly attach the commands you may need if you really want to use the oldconfig:
 
 ```bash
 make CC=clang -j$(nproc) modules_install INSTALL_MOD_PATH=$where_you_mount_the_disk_img
@@ -61,7 +63,7 @@ Start an VM using
 
 
 
-
 [1]: https://github.com/sefcom/RetSpill
 [2]: https://github.com/sefcom/KHeaps
 [3]: ./scripts/create-image.sh
+[4]: ./kernel/build.sh
