@@ -1,0 +1,4 @@
+scripts/chroot
+scripts/*.img
+scripts/*.id_rsa
+scripts/*.id_rsa.pub
