@@ -5,3 +5,4 @@ scripts/*.id_rsa.pub
 zone/img
 zone/bzImage*
 tmp
+kernel/kernel-v*
