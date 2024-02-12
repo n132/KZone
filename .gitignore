@@ -6,3 +6,10 @@ zone/img
 zone/bzImage*
 tmp
 kernel/kernel-v*
+zone/module/*.cmd
+zone/module/*.ko
+zone/module/*.o
+zone/module/*.mod
+zone/module/*.mod.c
+zone/module/Module.symvers
+zone/module/modules.order
