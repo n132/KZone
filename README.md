@@ -25,7 +25,14 @@ umount  /mnt/
 
 # Compile Linux Kernel
 
-TODO
+
+Knowledge Base: https://n132.github.io/2023/09/29/Kernel-Pwn-Env.html
+
+If it's possible. Try not to use your host's config. If you use your host's config (for example, Ubuntu) to compile the kernel, you may need to compile the modules and copy them to the disk imge, which may also require you to expand your disk image to store these compiled modules: aka modify the script and recreate the disk. Kindly attach the commands you may need if you really want to use the oldconfig:
+
+```bash
+make CC=clang -j$(nproc) modules_install INSTALL_MOD_PATH=$where_you_mount_the_disk_img
+```
 
 # kz
 
@@ -53,10 +60,6 @@ Start an VM using
 - SSH connect to the VM
 
 
-# TODO
-- [ ] Solve the networking problem
-- [ ] Merge Kernel Compilation part into this repo
-- [ ] Solving cp and connect issues 
 
 
 [1]: https://github.com/sefcom/RetSpill

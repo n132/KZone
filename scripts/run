@@ -74,3 +74,6 @@ qemu-system-x86_64 \
   -cpu host,-smap,-smep \
   -s \
   2>&1
+
+
+  # -net nic -net user,hostfwd=tcp::${SSH_PORT}-:22 \
