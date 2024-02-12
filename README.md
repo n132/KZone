@@ -23,9 +23,37 @@ mount ./bookworm.img /mnt/
 umount  /mnt/
 ```
 
+# Compile Linux Kernel
+
+TODO
+
+# kz
+
+- Usage: kz [command]
+- The default command of running kz is `kz run`
+
+## run
+
+Start an VM using 
+
+- Usage: kz run
+- The fist disk image at `$(pwd)/img/*.img`
+- Kernel Image at `$(pwd)/bzImage`
 
 
+## cp
 
+- Usage: kz cp <host_file>
+- Copy the file on host to the VM
+
+
+## connect
+
+
+# TODO
+- [ ] Solve the networking problem
+- [ ] Merge Kernel Compilation part into this repo
+- [ ] Solving cp and connect issues 
 
 
 [1]: https://github.com/sefcom/RetSpill
