@@ -3,7 +3,8 @@ A Play Ground for Learning Kernel. The infrastructure to play with the Linux ker
 
 You can write and compile your kernel module to debug some features you are interested at with this repository.
 
-** I steal the script from [RetSpill][1] and [KHeap][2] **
+
+I steal the scripts from [RetSpill][1] and [KHeap][2]
 
 
 
