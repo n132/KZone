@@ -28,7 +28,6 @@ fi
 # resolve image path
 list=($(pwd)/img/*.img)
 IMAGE=${list[0]}
-
 KERNEL=$(pwd)/bzImage
 
   #-cpu host,-smap,-smep \
