@@ -1,4 +1,5 @@
 # KZone
+
 A Play Ground for Learning Kernel. The infrastructure to play with the Linux kernel.
 
 You can write and compile your kernel module to debug some features you are interested at with this repository.
@@ -6,6 +7,39 @@ You can write and compile your kernel module to debug some features you are inte
 
 I steal the scripts from [RetSpill][1] and [KHeap][2]
 
+
+
+# Simple Guide
+
+1. Create an Image
+
+```bash
+cd scripts && ./create-image.sh && popd
+```
+
+2. Compile the Linux Kernel
+
+```bash
+cd kernel && ./build.sh v5.4.268
+cp ./kernel-v5.4.268/arch/x86/boot/bzImage ../zone
+popd
+```
+
+
+3. Run the kernel in a VM
+
+```bash
+cd zone
+./kz
+```
+
+4. Compile your kernel modules
+
+```bash
+
+```
+
+5. Play with your modules
 
 # Create Image
 
