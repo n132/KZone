@@ -9,7 +9,7 @@ I steal the scripts from [RetSpill][1] and [KHeap][2]
 
 
 
-# Simple Guide
+# How to use this repo
 
 1. Create an Image
 
@@ -36,10 +36,17 @@ cd zone
 4. Compile your kernel modules
 
 ```bash
-
+cd zone/module/
+make
+popd
 ```
 
 5. Play with your modules
+
+```bash
+cd zone
+./kz cp ./module/ko_n132.ko
+```
 
 # Create Image
 
