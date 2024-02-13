@@ -104,7 +104,27 @@ Start an VM using
 
 
 
+# Tips for Kernel Debugging
+
+## extract-vmlinux
+
+- [extract-vmlinux][5] is a tool that extract vmlinux from bzImage.
+- Usgae: `extract-vmlinux ./bzImage > vmlinux`
+
+## vmlinux-to-elf
+
+
+- A [tool][6] to recover symbols from `kallsyms`
+- Installation: `pip3 install --upgrade git+https://github.com/marin-m/vmlinux-to-elf`
+- Usage: `./vmlinux-to-elf <input_kernel.bin> <output_kernel.elf>`
+
+
+
+
+
 [1]: https://github.com/sefcom/RetSpill
 [2]: https://github.com/sefcom/KHeaps
 [3]: ./scripts/create-image.sh
 [4]: ./kernel/build.sh
+[5]: https://github.com/torvalds/linux/blob/master/scripts/extract-vmlinux
+[6]: https://github.com/marin-m/vmlinux-to-elf
