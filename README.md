@@ -77,9 +77,9 @@ Sometimes (v5.4.268 is fine) you need to patch the default config for some new v
 make CC=clang -j$(nproc) modules_install INSTALL_MOD_PATH=$where_you_mount_the_disk_img
 ```
 
-# kz
+# Script kz
 
-kz support 3 sub-command:
+`kz` support 3 sub-command:
 - `kz` 
     - Same as `kz run`
 - `kz run`
