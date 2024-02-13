@@ -11,13 +11,13 @@ I steal the scripts from [RetSpill][1] and [KHeap][2]
 
 # How to use this repo
 
-1. Create an Image
+Create an Image
 
 ```bash
 cd scripts && ./create-image.sh && popd
 ```
 
-2. Compile the Linux Kernel
+Compile the Linux Kernel
 
 ```bash
 cd kernel && ./build.sh v5.4.268
@@ -26,14 +26,14 @@ popd
 ```
 
 
-3. Run the kernel in a VM
+Run the kernel in a VM
 
 ```bash
 cd zone
 ./kz
 ```
 
-4. Compile your kernel modules
+Compile your kernel modules
 
 ```bash
 cd zone/module/
@@ -41,14 +41,14 @@ make
 popd
 ```
 
-5. Play with your modules
+Play with your modules
 
 ```bash
 cd zone
 ./kz cp ./module/ko_n132.ko
 ```
 
-# Create Image
+# Create an Image
 
 Use the [script][3] to create an image. 
 
