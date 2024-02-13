@@ -79,29 +79,17 @@ make CC=clang -j$(nproc) modules_install INSTALL_MOD_PATH=$where_you_mount_the_d
 
 # kz
 
-- Usage: `kz [command]`
-- The default command of running kz is `kz run`
-
-## run
-
-Start an VM using 
-
-- Usage: `kz run`
-- The fist disk image at `$(pwd)/img/*.img`
-- Kernel Image at `$(pwd)/bzImage`
-
-
-## cp
-
-- Usage: `kz cp <host_file>`
-- Copy the file on host to the VM
-
-
-## sh
-
-- Usage: `kz sh`
-- SSH connect to the VM
-
+kz support 3 sub-command:
+- `kz` 
+    - Same as `kz run`
+- `kz run`
+    - Start a VM 
+    - Using the fist disk image at `$(pwd)/img/*.img`
+    - Using the first Kernel Image at `$(pwd)/bzImage`
+- `kz cp <host_file>`
+    - Copy the file on host to the VM
+- `kz sh`
+    - SSH connect to the VM
 
 
 # Tips for Kernel Debugging
@@ -117,8 +105,6 @@ Start an VM using
 - A [tool][6] to recover symbols from `kallsyms`
 - Installation: `pip3 install --upgrade git+https://github.com/marin-m/vmlinux-to-elf`
 - Usage: `vmlinux-to-elf ./vmlinux.raw vmlinux`
-
-
 
 
 
