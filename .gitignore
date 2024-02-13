@@ -3,6 +3,7 @@ scripts/*.img
 scripts/*.id_rsa
 scripts/*.id_rsa.pub
 zone/bzImage*
+zone/vmlinux*
 tmp
 kernel/kernel-v*
 zone/module/*.cmd

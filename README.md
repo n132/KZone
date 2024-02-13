@@ -109,14 +109,14 @@ Start an VM using
 ## extract-vmlinux
 
 - [extract-vmlinux][5] is a tool that extract vmlinux from bzImage.
-- Usgae: `extract-vmlinux ./bzImage > vmlinux`
+- Usgae: `extract-vmlinux ./bzImage > vmlinux.raw`
 
 ## vmlinux-to-elf
 
 
 - A [tool][6] to recover symbols from `kallsyms`
 - Installation: `pip3 install --upgrade git+https://github.com/marin-m/vmlinux-to-elf`
-- Usage: `./vmlinux-to-elf <input_kernel.bin> <output_kernel.elf>`
+- Usage: `vmlinux-to-elf ./vmlinux.raw vmlinux`
 
 
 
