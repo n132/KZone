@@ -94,6 +94,12 @@ make CC=clang -j$(nproc) modules_install INSTALL_MOD_PATH=$where_you_mount_the_d
 
 # Tips for Kernel Debugging
 
+## vmlinux
+
+- Using `gdb vmlinux` to debug the kernel makes life easier
+- If you compile the kernel with keeping debug symbols, you'll find vmlinux at the root of source directory
+
+
 ## extract-vmlinux
 
 - [extract-vmlinux][5] is a tool that extract vmlinux from bzImage.
