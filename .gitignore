@@ -12,3 +12,5 @@ zone/module/*.mod
 zone/module/*.mod.c
 zone/module/Module.symvers
 zone/module/modules.order
+.gdb_*
+.vscode
