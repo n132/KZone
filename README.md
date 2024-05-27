@@ -107,7 +107,6 @@ make CC=clang -j$(nproc) modules_install INSTALL_MOD_PATH=$where_you_mount_the_d
 
 ## vmlinux-to-elf
 
-
 - A [tool][6] to recover symbols from `kallsyms`
 - Installation: `pip3 install --upgrade git+https://github.com/marin-m/vmlinux-to-elf`
 - Usage: `vmlinux-to-elf ./vmlinux.raw vmlinux`
