@@ -59,9 +59,9 @@ Use the [script][3] to create an image.
 You can `mount` and `umount` to modify the image:
 
 ```bash
-mount ./bookworm.img /mnt/
+sudo mount ./bookworm.img /mnt/
 # Modify the content of the image
-umount  /mnt/
+sudo umount  /mnt/
 ```
 
 # Compile Linux Kernel
