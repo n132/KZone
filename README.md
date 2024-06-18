@@ -111,7 +111,26 @@ make CC=clang -j$(nproc) modules_install INSTALL_MOD_PATH=$where_you_mount_the_d
 - Installation: `pip3 install --upgrade git+https://github.com/marin-m/vmlinux-to-elf`
 - Usage: `vmlinux-to-elf ./vmlinux.raw vmlinux`
 
-
+## Template of x.sh
+```bash
+#!/bin/sh
+gcc ./fs/exp.c -masm=intel -o ./fs/exp -lx -lpthread --static -w &&\
+echo "[+] Compile - Done" &&\
+cd /home/n132/tap/KZone/scripts
+sudo mount buster.img fs
+sleep .5
+cp /home/n132/tap/KZone/zone/fs/exp /home/n132/tap/KZone/scripts/fs
+sudo umount fs
+cd /home/n132/tap/KZone/zone/
+# cd ./fs &&\
+# find . | cpio -o --format=newc > ../initramfs.cpio &&\
+echo "[+] repacking - Done" &&\
+# cd .. &&\
+# gzip -f ./initramfs.cpio &&\
+echo "[+] Filesystem - Done" &&\
+echo "[...] run.sh" &&\
+sudo ./kz run
+```
 
 [1]: https://github.com/sefcom/RetSpill
 [2]: https://github.com/sefcom/KHeaps
