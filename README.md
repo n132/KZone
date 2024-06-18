@@ -122,11 +122,7 @@ sleep .5
 cp /home/n132/tap/KZone/zone/fs/exp /home/n132/tap/KZone/scripts/fs
 sudo umount fs
 cd /home/n132/tap/KZone/zone/
-# cd ./fs &&\
-# find . | cpio -o --format=newc > ../initramfs.cpio &&\
 echo "[+] repacking - Done" &&\
-# cd .. &&\
-# gzip -f ./initramfs.cpio &&\
 echo "[+] Filesystem - Done" &&\
 echo "[...] run.sh" &&\
 sudo ./kz run
