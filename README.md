@@ -112,6 +112,7 @@ make CC=clang -j$(nproc) modules_install INSTALL_MOD_PATH=$where_you_mount_the_d
 - Usage: `vmlinux-to-elf ./vmlinux.raw vmlinux`
 
 ## Template of x.sh
+Format: .img
 ```bash
 #!/bin/sh
 gcc ./fs/exp.c -masm=intel -o ./fs/exp -lx -lpthread --static -w &&\
