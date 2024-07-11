@@ -5,7 +5,7 @@ scripts/*.id_rsa.pub
 zone/bzImage*
 zone/vmlinux*
 tmp
-kernel/kernel-v*
+kernel/
 zone/module/*.cmd
 zone/module/*.ko
 zone/module/*.o
@@ -15,3 +15,6 @@ zone/module/Module.symvers
 zone/module/modules.order
 .gdb_*
 .vscode
+
+
+!kernel/build.sh
