@@ -129,6 +129,10 @@ echo "[...] run.sh" &&\
 sudo ./kz run
 ```
 
+
+# TODO
+- support lower versions of kernel
+
 [1]: https://github.com/sefcom/RetSpill
 [2]: https://github.com/sefcom/KHeaps
 [3]: ./scripts/create-image.sh
