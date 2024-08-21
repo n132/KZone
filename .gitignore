@@ -15,6 +15,7 @@ zone/module/Module.symvers
 zone/module/modules.order
 .gdb_*
 .vscode
-
+main
+main.c
 
 !kernel/build.sh

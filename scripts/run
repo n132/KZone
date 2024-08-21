@@ -12,7 +12,7 @@ fi
 
 # init core number
 if [ -z $2 ]; then
-	CORE_NUM=2
+	CORE_NUM=1
 else
 	CORE_NUM=$2
 fi
@@ -20,7 +20,7 @@ fi
 # init memory size
 if [ -z $3 ];
 then
-	MEM_SIZE=4G
+	MEM_SIZE=32G
 else
 	MEM_SIZE=$3
 fi
@@ -61,19 +61,16 @@ KERNEL=$(pwd)/bzImage
   #-s \
   #-cpu kvm64 \
 qemu-system-x86_64 \
-  --snapshot \
-  -kernel $KERNEL \
-  -hda $IMAGE \
-  -append "console=ttyS0 root=/dev/sda debug earlyprintk=serial panic=1000 oops=panic kaslr nosmap nosmep selinux=0 nopti tsc=unstable net.ifnames=0" \
-  -net nic -net user,hostfwd=tcp::${SSH_PORT}-:22 \
-  -nographic \
-  -m $MEM_SIZE \
-  -monitor tcp:127.0.0.1:45454,server,nowait \
-  -smp cores=$CORE_NUM,threads=2 \
-  -enable-kvm \
-  -cpu host,-smap,-smep \
-  -s \
-  2>&1
-
-
-  # -net nic -net user,hostfwd=tcp::${SSH_PORT}-:22 \
+   --snapshot \
+   -kernel $KERNEL \
+   -hda $IMAGE \
+   -append "console=ttyS0 root=/dev/sda debug earlyprintk=serial panic=1000 oops=panic nokaslr nosmap nosmep selinux=0 nopti tsc=unstable net.ifnames=0" \
+   -net nic -net user,hostfwd=tcp::${SSH_PORT}-:22,hostfwd=tcp::33333-:33333 \
+   -nographic \
+   -m $MEM_SIZE \
+   -monitor tcp:127.0.0.1:45454,server,nowait \
+   -smp cores=$CORE_NUM,threads=1 \
+   -enable-kvm \
+   -cpu qemu64,-smap,-smep \
+   -s -D ./log.txt \
+   2>&1
