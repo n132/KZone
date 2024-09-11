@@ -258,7 +258,7 @@ static long int n132_ioctl(struct file *file, unsigned int cmd, unsigned long ar
             break;
         case 0x13370002: //oob write
             printk(KERN_INFO "OOB WRITE\n");
-
+            printk(KERN_INFO "%px %px %px\n",(void*)user_req.addr,(void*)user_req.buf, (void*)user_req.size);
             if (copy_from_user(user_req.addr,user_req.buf, user_req.size)) 
                 return -1;
             
@@ -304,22 +304,22 @@ static long int n132_ioctl(struct file *file, unsigned int cmd, unsigned long ar
     return 0;
 
 }
-static long int n132_ioctl_chal(struct file *file, unsigned int cmd, unsigned long arg){
-    if(cmd==0x13370006){
-        char *a = kmalloc(0x1000,GFP_ATOMIC);
-        a[0x1000] = 0;
-        kfree(a);
-        return 0;
-    }
-    else{
-        return -1;
-    }
-}
+// static long int n132_ioctl_chal(struct file *file, unsigned int cmd, unsigned long arg){
+//     if(cmd==0x13370006){
+//         char *a = kmalloc(0x1000,GFP_ATOMIC);
+//         a[0x1000] = 0;
+//         kfree(a);
+//         return 0;
+//     }
+//     else{
+//         return -1;
+//     }
+// }
 #define DEVICE_NAME "ko_n132"
 
 static const struct file_operations n132_fops = {
     .owner = THIS_MODULE,
-    .unlocked_ioctl = n132_ioctl_chal, 
+    .unlocked_ioctl = n132_ioctl, 
 };
 
 static struct miscdevice librarymodule = {
@@ -331,26 +331,6 @@ static struct miscdevice librarymodule = {
 void * list[0x100]  = {};
 static int __init ko_n132_init(void)
 {   
-    // size_t wtf = 0;
-    // void * target_page = 0xdc000000+(void *)page_offset_base;
-    // printk("%px\n",(void *)target_page);
-    // wtf = (size_t)target_page+0x1000;
-    // printk("%px\n",*(void **)wtf);
-    // printk("[V] %x\n",GFP_KERNEL);
-    // printk("[V] %x\n",GFP_KERNEL_ACCOUNT);
-    // printk("[V] %x\n",GFP_ATOMIC);
-    
-    // for(int i =0 ; i < 0x100 ;i ++)
-    // {
-    //     if(i%2==0)
-    //         list[i] = kmalloc(0x100,GFP_ATOMIC);
-    //     else
-    //         list[i] = kmalloc(0x100,GFP_KERNEL);
-    //     printk("%px\n",list[i]);
-    // }
-    // kfree(list[0xff]);
-    // list[0xff] = kmalloc(0x100,GFP_ATOMIC);
-    // printk("%px\n",list[0xff]);
 	return misc_register(&librarymodule);
 }
 static void ko_n132_exit(void)

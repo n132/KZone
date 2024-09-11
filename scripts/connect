@@ -11,4 +11,4 @@ fi
 DIR=$(dirname $(realpath -s $0))
 list=($DIR/*.id_rsa)
 KEY=${list[0]}
-ssh -i $KEY -p $SSH_PORT -o "StrictHostKeyChecking no" -o "UserKnownHostsFile /dev/null" user@localhost
+ssh -i $KEY -p $SSH_PORT -o "StrictHostKeyChecking no" -o "UserKnownHostsFile /dev/null" root@localhost
