@@ -183,7 +183,60 @@ int xLay(size_t nr_page){
         return 1;
     return 0;
 }
+int holes(void);
+int holes(void ){
 
+    // Assuming we are targeting order-1
+    int i;
+    size_t nr_page = 0x40*4;
+    size_t * targets;
+    size_t *a,*b;
+    // size_t probe1 = 0xffffffffffffffff;
+    // size_t probe2 = 0x1111111111111111;
+    // size_t flag1 =0;
+    // size_t flag2 =0;
+    // Drain fragments
+    for(i  = 0 ;  i < 0x800 ; i++)
+        kmalloc(0x100,GFP_KERNEL);
+    for(i  = 0 ;  i < 0x800 ; i++)
+        kmalloc(0x200,GFP_KERNEL);
+    a = (size_t *)__get_free_pages(GFP_KERNEL,3);
+    b = (size_t *)__get_free_pages(GFP_KERNEL,3);
+    for(i = 0 ; i < 0x200; i++)
+        __get_free_pages(GFP_KERNEL,0);
+    // Do the work
+    for(i = 0 ; i < nr_page; i++)
+        ptr_table[i]=(size_t *)__get_free_pages(GFP_KERNEL,0);
+    
+
+    /*
+        NYYY
+    */
+    for(i = 0 ; i < nr_page ; i++)
+        if(i%4!=0)
+            free_pages((unsigned long )ptr_table[i],0);
+    
+    free_pages((unsigned long )a,3);
+    free_pages((unsigned long )b,3);
+
+    for(i  = 0 ;  i < nr_page*0x1000/0x200*2; i++){
+        targets = kmalloc(0x200,GFP_KERNEL);
+        memset(targets,'\x22',0x200);
+    }
+    for(i = 0 ; i < nr_page ; i++)
+        if(i%4==0)
+            free_pages((unsigned long )ptr_table[i],0);
+    for(i  = 0 ;  i < nr_page*0x1000/0x100*2 ; i++){
+        targets = kmalloc(0x100,GFP_KERNEL);
+        memset(targets,'\x11',0x100);
+    }
+    for(i = 0 ; i < nr_page ; i++)
+        // if(i%4!=0)
+            hexdump(ptr_table[i],0x10);
+
+
+    return 0;
+}
 struct req{
     void * addr;
     size_t size;
@@ -271,6 +324,7 @@ static struct miscdevice librarymodule = {
 };
 static int __init ko_n132_init(void)
 {   
+    holes();
 	return misc_register(&librarymodule);
 }
 static void ko_n132_exit(void)
