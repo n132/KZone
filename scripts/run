@@ -12,7 +12,7 @@ fi
 
 # init core number
 if [ -z $2 ]; then
-	CORE_NUM=1
+	CORE_NUM=2
 else
 	CORE_NUM=$2
 fi
