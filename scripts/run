@@ -64,7 +64,7 @@ qemu-system-x86_64 \
    --snapshot \
    -kernel $KERNEL \
    -hda $IMAGE \
-   -append "console=ttyS0 root=/dev/sda debug earlyprintk=serial panic=1000 oops=panic nokaslr nosmap nosmep selinux=0 nopti tsc=unstable net.ifnames=0" \
+   -append "console=ttyS0 root=/dev/sda debug earlyprintk=serial panic=1000 oops=panic nokaslr selinux=0 nopti tsc=unstable net.ifnames=0" \
    -net nic -net user,hostfwd=tcp::${SSH_PORT}-:22,hostfwd=tcp::33333-:33333 \
    -nographic \
    -m $MEM_SIZE \
