@@ -17,5 +17,5 @@ zone/module/modules.order
 .vscode
 main
 main.c
-
+exp*
 !kernel/build.sh
