@@ -207,7 +207,6 @@ int holes(void ){
     // Do the work
     for(i = 0 ; i < nr_page; i++)
         ptr_table[i]=(size_t *)__get_free_pages(GFP_KERNEL,0);
-    
 
     /*
         NYYY
@@ -223,9 +222,6 @@ int holes(void ){
         targets = kmalloc(0x200,GFP_KERNEL);
         memset(targets,'\x22',0x200);
     }
-    for(i = 0 ; i < nr_page ; i++)
-        if(i%4==0)
-            free_pages((unsigned long )ptr_table[i],0);
     for(i  = 0 ;  i < nr_page*0x1000/0x100*2 ; i++){
         targets = kmalloc(0x100,GFP_KERNEL);
         memset(targets,'\x11',0x100);
@@ -288,7 +284,7 @@ static long int n132_ioctl(struct file *file, unsigned int cmd, unsigned long ar
             // KERNEL SPRAY
             printk(KERN_INFO "GFP_KERNEL SPRAY\n");
             res = (long int)kmalloc(user_req.size,GFP_KERNEL);
-            printk("%px %px\n",(void *)res,user_req.addr);
+            printk("0x%px\n",(void *)res);
             if(copy_from_user((void *)res,user_req.addr,user_req.size))
                 return -1;
             break;
@@ -308,12 +304,22 @@ static long int n132_ioctl(struct file *file, unsigned int cmd, unsigned long ar
     return 0;
 
 }
-
+static long int n132_ioctl_chal(struct file *file, unsigned int cmd, unsigned long arg){
+    if(cmd==0x13370006){
+        char *a = kmalloc(0x1000,GFP_ATOMIC);
+        a[0x1000] = 0;
+        kfree(a);
+        return 0;
+    }
+    else{
+        return -1;
+    }
+}
 #define DEVICE_NAME "ko_n132"
 
 static const struct file_operations n132_fops = {
     .owner = THIS_MODULE,
-    .unlocked_ioctl = n132_ioctl, 
+    .unlocked_ioctl = n132_ioctl_chal, 
 };
 
 static struct miscdevice librarymodule = {
@@ -322,9 +328,29 @@ static struct miscdevice librarymodule = {
     .fops       = &n132_fops,
     .mode	    = 0666,
 };
+void * list[0x100]  = {};
 static int __init ko_n132_init(void)
 {   
-    holes();
+    // size_t wtf = 0;
+    // void * target_page = 0xdc000000+(void *)page_offset_base;
+    // printk("%px\n",(void *)target_page);
+    // wtf = (size_t)target_page+0x1000;
+    // printk("%px\n",*(void **)wtf);
+    // printk("[V] %x\n",GFP_KERNEL);
+    // printk("[V] %x\n",GFP_KERNEL_ACCOUNT);
+    // printk("[V] %x\n",GFP_ATOMIC);
+    
+    // for(int i =0 ; i < 0x100 ;i ++)
+    // {
+    //     if(i%2==0)
+    //         list[i] = kmalloc(0x100,GFP_ATOMIC);
+    //     else
+    //         list[i] = kmalloc(0x100,GFP_KERNEL);
+    //     printk("%px\n",list[i]);
+    // }
+    // kfree(list[0xff]);
+    // list[0xff] = kmalloc(0x100,GFP_ATOMIC);
+    // printk("%px\n",list[0xff]);
 	return misc_register(&librarymodule);
 }
 static void ko_n132_exit(void)
