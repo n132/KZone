@@ -18,6 +18,9 @@ case "$1" in
     "sh")
         $SCRIPT_DIR/connect
         ;;
+    "pull")
+        $SCRIPT_DIR/pull $2
+        ;;
     *)
         echo "Invalid option or option not provided."
         echo "Usage: $0 <run|sh>"

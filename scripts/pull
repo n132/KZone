@@ -1,0 +1,65 @@
+#!/usr/bin/python3
+from pathlib import Path
+import requests, sys, subprocess
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+def WARN(s):
+    print(f"[🚧] {bcolors.WARNING}{s}{bcolors.ENDC}")
+
+def FAIL(s):
+    print(f"[🚒] {bcolors.FAIL}{s}{bcolors.ENDC}")
+
+def INFO(s):
+    print(f"[💬] {bcolors.OKBLUE}{s}{bcolors.ENDC}")
+
+def SUCCESS(s):
+    print(f"[🌟] {bcolors.OKGREEN}{s}{bcolors.ENDC}")
+
+
+def sourceDonwload(kernel_version,save_path = "."):
+    
+    if kernel_version.startswith("v"):
+        kernel_version = kernel_version[1:]
+    tmp_save = Path(save_path) / f"linux-{kernel_version}.tar.xz"
+    INFO(tmp_save)
+    if not tmp_save.exists():
+        major_version = kernel_version.split(".")[0]
+        url = f"https://cdn.kernel.org/pub/linux/kernel/v{major_version}.x/linux-{kernel_version}.tar.xz"
+        INFO(f"Downloading {url}...")
+        response = requests.get(url, stream=True)
+        response.raise_for_status()
+
+        with open(tmp_save, 'wb') as file:
+            for chunk in response.iter_content(chunk_size=8192):
+                if chunk:  # filter out keep-alive new chunks
+                    file.write(chunk)
+    SUCCESS(f"Downloaded and saved {kernel_version} at {save_path}")
+    unar_path = Path(save_path) / f"linux-{kernel_version}"
+    if not unar_path.exists():
+        try:
+            subprocess.check_call(["unar",str(tmp_save)],stdout=open("/dev/null",'w'),stderr=open("/dev/null",'w'),cwd = save_path) or not unar_path.exists()
+        except:
+            FAIL(f"FAILED to `unar` {tmp_save}")
+            
+        SUCCESS(f"Unar to {unar_path}")
+    return unar_path
+def usage():
+    INFO("Usage:")
+    INFO("  kz pull <kernel_version>")
+    INFO("  e.g. kz pull v5.6.19")
+    exit(0)
+if __name__ == "__main__":
+    if len(sys.argv)!=2:
+        usage()
+    if sys.argv[1] != '-h':
+        sourceDonwload(sys.argv[1])
+    else:
+        usage()
