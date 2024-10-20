@@ -19,3 +19,4 @@ main
 main.c
 exp*
 !kernel/build.sh
+log*
