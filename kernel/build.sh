@@ -4,4 +4,4 @@ echo "Downloading the source code of" $1
 rm -rf kernel-$1
 git clone --branch $1 --depth 1 git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git kernel-$1
 WorkDIR=`realpath ./kernel-$1`
-docker run -v$WorkDIR:$WorkDIR n132/kernel-compiler:20.04 bash -c "cd $WorkDIR && make defconfig && sed -i 's/CONFIG_DEBUG_INFO_NONE=y/CONFIG_DEBUG_INFO=y/' ./.config && echo 'CONFIG_DEBUG_INFO=y' >> ./.config && make -j$(nproc)"
+docker run -v$WorkDIR:$WorkDIR n132/kernel-compiler:20.04 bash -c "cd $WorkDIR && make defconfig && sed -i 's/CONFIG_DEBUG_INFO_NONE=y/CONFIG_DEBUG_INFO=y/' ./.config && echo 'CONFIG_DEBUG_INFO=y\nCONFIG_DEBUG_INFO_DWARF4=' >> ./.config && make -j$(nproc)"
