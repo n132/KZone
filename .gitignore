@@ -5,7 +5,6 @@ scripts/*.id_rsa.pub
 zone/bzImage*
 zone/vmlinux*
 tmp
-kernel/
 zone/module/*.cmd
 zone/module/*.ko
 zone/module/*.o
@@ -19,4 +18,6 @@ main
 main.c
 exp*
 !kernel/build.sh
+kernel/kernel-*
+kernel/linux-*
 log*
