@@ -21,3 +21,6 @@ exp*
 kernel/kernel-*
 kernel/linux-*
 log*
+x.sh
+dbg
+zone/module/ko_n132.c
