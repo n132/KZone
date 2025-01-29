@@ -27,7 +27,7 @@ fi
 if which NL &> /dev/null; then
     NL QEMU
 else
-    ;
+    :
 fi
 # resolve image path
 list=($(pwd)/img/*.img)
