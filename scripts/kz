@@ -24,6 +24,9 @@ case "$1" in
     "switch")
         $SCRIPT_DIR/switch $2
         ;;
+    "zone")
+        $SCRIPT_DIR/zone $2
+        ;;
     *)
         echo "Invalid option or option not provided."
         echo "Usage: $0 <run|sh>"
