@@ -1,12 +1,36 @@
 #!/bin/bash
 
-# set -x
-DIR=$(dirname $(realpath -s $0))
+help() {
+    cat <<EOF
+Usage: $(basename "$0") <fs_name>
 
-if [ -z $1 ];
-then
-    echo "Missing arg"
-    exit
+Arguments:
+  fs_name    Name of the file system directory to copy. This is required.
+
+Description:
+  This script backs up previous file system files (e.g., `*.id_rsa`, `*.img`) to a temporary directory
+  and then copies all contents from the specified file system directory into the script's directory.
+
+Options:
+  -h, --help   Display this help message and exit.
+
+Example:
+  $(basename "$0") fs_dir
+
+EOF
+}
+
+# Handle help option
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    help
+    exit 0
+fi
+
+# Validate required argument
+if [ -z "$1" ]; then
+    echo "Error: Missing argument for file system name."
+    help
+    exit 1
 else
     FS_NAME=$1
 fi
