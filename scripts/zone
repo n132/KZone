@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 DIR=$(dirname $(realpath -s $0))
 PDIR=$(dirname $DIR)
 # set -x
@@ -19,9 +18,25 @@ else
   cp  -a $PDIR/template $PDIR/$ZN
 fi
 
-
-
-
-echo $DIR
-echo $PDIR
-echo $ZN
+if [ -z $2 ]; then 
+    :
+else
+    if [ -d "$PDIR/kernel/kernel-$2" ]; then
+        :
+    else
+        echo "[+] Kernel Version: " $2
+        read -p "Do you want to download and compile the kernel? (y/n): " response
+        if [[ "$response" =~ ^[Yy]$ ]]; then
+            (
+                cd "$PDIR/kernel" || exit 1
+                ./build.sh $2
+            )
+        else
+            :
+        fi
+    fi
+    cp  "$PDIR/kernel/kernel-$2/vmlinux" $PDIR/$ZN
+    cp  "$PDIR/kernel/kernel-$2/arch/x86/boot/bzImage" $PDIR/$ZN
+    TMP="$PDIR/kernel/kernel-$2"
+    sed -i "s|^\(KDIR =\).*|\1$TMP|" $PDIR/$ZN/module/Makefile
+fi
