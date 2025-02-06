@@ -1,9 +1,11 @@
 # KZone
 
-KZone is a playground for learning and experimenting with the Linux kernel. This infrastructure allows you to write, compile, and debug kernel modules with ease.
+
+KZone is a playground for learning and experimenting with the Linux kernel. This infrastructure allows you to write, compile, and debug linux kernel with ease.
 
 Parts of the scripts were adapted from RetSpill and KHeap.
 
+[![asciicast](https://asciinema.org/a/FhI3yXmoT5FedbiSphHQJEWP2.svg)](https://asciinema.org/a/701958)
 
 # Getting Started
 
@@ -17,6 +19,7 @@ cd KZone
 Use the [script][3] to create an image. 
 
 ```bash
+cd scripts
 # you may need
 # sudo apt install debootstrap
 ./create-image.sh --distribution bookworm
