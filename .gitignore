@@ -1,13 +1,14 @@
+# Script folder
 scripts/chroot
 scripts/*.img
 scripts/*.id_rsa
 scripts/*.id_rsa.pub
 scripts/fs_*
+# Generic Files
 tmp
 .gdb_*
 .vscode
-main
-main.c
+
 exp*
 !kernel/build.sh
 kernel/kernel-*
