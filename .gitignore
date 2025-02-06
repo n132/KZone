@@ -12,5 +12,5 @@ kernel/kernel-*
 kernel/linux-*
 log.txt
 x.sh
-dbg
 zone*/
+bench
