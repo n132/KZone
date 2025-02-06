@@ -8,8 +8,6 @@ scripts/fs_*
 tmp
 .gdb_*
 .vscode
-
-exp*
 !kernel/build.sh
 kernel/kernel-*
 kernel/linux-*
