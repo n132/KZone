@@ -1,5 +1,35 @@
 #!/bin/bash
 
+help() {
+    cat <<EOF
+Usage: $(basename "$0") [ssh_port]
+
+Arguments:
+  ssh_port    (Optional) The SSH port to use for the connection. Default: 10069.
+
+Description:
+  This script connects to a remote machine via SSH using an SSH key located in the script's directory.
+  It disables strict host key checking and does not store the host in the known hosts file.
+
+Options:
+  -h, --help   Display this help message and exit.
+
+Example:
+  $(basename "$0") 20222
+
+Dependencies:
+  - An SSH key file (`*.id_rsa`) must exist in the script's directory.
+  - SSH must be installed and running.
+
+EOF
+}
+
+# Handle help option
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    help
+    exit 0
+fi
+
 # init ssh port
 if [ -z $1 ];
 then
