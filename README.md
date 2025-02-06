@@ -1,12 +1,11 @@
 # KZone
 
-[![asciicast](https://asciinema.org/a/FhI3yXmoT5FedbiSphHQJEWP2.svg)](https://asciinema.org/a/FhI3yXmoT5FedbiSphHQJEWP2)
-
 
 KZone is a playground for learning and experimenting with the Linux kernel. This infrastructure allows you to write, compile, and debug kernel modules with ease.
 
 Parts of the scripts were adapted from RetSpill and KHeap.
 
+[![asciicast](https://asciinema.org/a/FhI3yXmoT5FedbiSphHQJEWP2.svg)](https://asciinema.org/a/701958)
 
 # Getting Started
 
