@@ -6,7 +6,7 @@ SCRIPT_DIR=$(dirname $(realpath $0))
 case "$1" in
     "")
         # Execute script for option1
-        $SCRIPT_DIR/run
+        $SCRIPT_DIR/run 
         ;;
     "run")
         # Execute script for option2
@@ -25,7 +25,8 @@ case "$1" in
         $SCRIPT_DIR/switch $2
         ;;
     "zone")
-        $SCRIPT_DIR/zone $2
+        shift
+        $SCRIPT_DIR/zone "$@"
         ;;
     *)
         echo "Invalid option or option not provided."

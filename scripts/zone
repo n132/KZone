@@ -1,0 +1,27 @@
+#!/bin/bash
+
+
+DIR=$(dirname $(realpath -s $0))
+PDIR=$(dirname $DIR)
+# set -x
+if [ -z $1 ];
+then
+    echo "Missing Zone Name"
+    exit
+else
+    ZN=$1
+fi
+
+if [ -d $PDIR/$ZN ]; then
+  echo "Folder exists"
+  exit
+else
+  cp  -a $PDIR/template $PDIR/$ZN
+fi
+
+
+
+
+echo $DIR
+echo $PDIR
+echo $ZN
