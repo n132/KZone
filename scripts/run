@@ -1,6 +1,38 @@
 #!/bin/bash
 # From https://github.com/sefcom/RetSpill
 
+help() {
+    cat <<EOF
+Usage: $(basename "$0") [SSH_PORT] [CORE_NUM] [MEM_SIZE]
+
+Arguments:
+  SSH_PORT    (Optional) SSH forwarding port for the VM. Default: 10069
+  CORE_NUM    (Optional) Number of CPU cores to allocate. Default: 2
+  MEM_SIZE    (Optional) Amount of memory to allocate to the VM. Default: 32G
+
+Description:
+  This script launches a QEMU virtual machine with predefined parameters.
+  It supports snapshot mode, kernel loading, memory allocation, and network configuration.
+
+Options:
+  -h, --help  Display this help message and exit.
+
+Example:
+  $(basename "$0") 20222 4 16G
+
+Dependencies:
+  - QEMU must be installed.
+  - ./bzImage
+  - The image path should be available in the current directory under 'img/*.img'.
+EOF
+}
+
+# Handle help option
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    help
+    exit 0
+fi
+
 
 # init ssh port
 if [ -z $1 ];

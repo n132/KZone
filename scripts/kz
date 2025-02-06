@@ -1,36 +1,66 @@
 #!/bin/bash
+help() {
+    cat <<EOF
+Usage: $(basename "$0") <command> [options]
 
+Commands:
+  run       Spwan a qemu vm for ./bzIamge.
+  cp        Copy files to the virtual machine using 'copy2vm'.
+  sh        Connect to the virtual machine shell using 'connect'.
+  switch    Switch between different filesystem environments using 'switch'.
+  zone      Create a new zone(debug enviroment)
+
+Options:
+  -h, --help  Display this help message and exit.
+
+Examples:
+  $(basename "$0") run
+  $(basename "$0") cp /path/to/local/file
+  $(basename "$0") sh
+  $(basename "$0") switch default
+  $(basename "$0") zone zone_v6.13 v6.13
+
+EOF
+}
+
+# Handle help option
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    help
+    exit 0
+fi
 # Check the first parameter using case
 SCRIPT_DIR=$(dirname $(realpath $0))
 # echo $SCRIPT_DIR
 case "$1" in
     "")
         # Execute script for option1
-        $SCRIPT_DIR/run 
+        help
         ;;
     "run")
-        # Execute script for option2
-        $SCRIPT_DIR/run
+        shift
+        $SCRIPT_DIR/run "$@"
         ;;
     "cp")
-        $SCRIPT_DIR/copy2vm $2
+        shift
+        $SCRIPT_DIR/copy2vm "$@"
         ;;
     "sh")
-        $SCRIPT_DIR/connect
+        shift
+        $SCRIPT_DIR/connect "$@"
         ;;
     "pull")
-        $SCRIPT_DIR/pull $2
+        shift
+        $SCRIPT_DIR/pull "$@"
         ;;
     "switch")
-        $SCRIPT_DIR/switch $2
+        shift
+        $SCRIPT_DIR/switch "$@"
         ;;
     "zone")
         shift
         $SCRIPT_DIR/zone "$@"
         ;;
     *)
-        echo "Invalid option or option not provided."
-        echo "Usage: $0 <run|sh>"
-        echo "or     $0 cp <file_path>"
+        help
         ;;
 esac

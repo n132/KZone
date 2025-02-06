@@ -1,10 +1,41 @@
 #!/bin/bash
 
-# sanity check
-if [ -z $1 ];
-then
-    echo "please specify the path to the file you want to copy"
-    exit
+help() {
+    cat <<EOF
+Usage: $(basename "$0") <file_path> [ssh_port]
+
+Arguments:
+  file_path    Path to the file you want to copy. This is required.
+  ssh_port     (Optional) The SSH port for connecting to the remote machine. Default: 10069
+
+Description:
+  This script copies a file to a remote machine using `scp`. It uses an SSH key file located 
+  in the script's directory and disables strict host key checking for the connection.
+
+Options:
+  -h, --help   Display this help message and exit.
+
+Example:
+  $(basename "$0") /path/to/file 20222
+
+Dependencies:
+  - `scp` must be installed.
+  - An SSH key (`*.id_rsa`) should exist in the script's directory.
+
+EOF
+}
+
+# Handle help option
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    help
+    exit 0
+fi
+
+# Sanity check for required arguments
+if [ -z "$1" ]; then
+    echo "Error: Please specify the path to the file you want to copy."
+    help
+    exit 1
 fi
 
 # init ssh port
