@@ -9,7 +9,7 @@ I steal the scripts from [RetSpill][1] and [KHeap][2]
 
 
 
-# How to use this repo
+# How to use this repo 
 
 Create an Image
 
@@ -20,13 +20,13 @@ cd scripts && ./create-image.sh && popd
 Compile the Linux Kernel
 
 ```bash
-cd kernel && ./build.sh v5.4.268
-cp ./kernel-v5.4.268/arch/x86/boot/bzImage ../zone
+cd kernel && ./build.sh v6.6.66
+cp ./kernel-v6.6.66/arch/x86/boot/bzImage ../zone
+cp ./kernel-v6.6.66/vmlinux ../zone
 popd
 ```
 
-
-Run the kernel in a VM
+Spawn a qemu vm with the compiled kernel:
 
 ```bash
 cd zone
@@ -79,9 +79,11 @@ Sometimes (v5.4.268 is fine) you need to patch the default config for some new v
 make CC=clang -j$(nproc) modules_install INSTALL_MOD_PATH=$where_you_mount_the_disk_img
 ```
 
-# Script kz
+# kz
 
-`kz` support 3 sub-command:
+`kz` support several sub-commands. This section introduce the usage of them.
+
+# Spawn a VM
 - `kz` 
     - Same as `kz run`
 - `kz run`
@@ -92,6 +94,10 @@ make CC=clang -j$(nproc) modules_install INSTALL_MOD_PATH=$where_you_mount_the_d
     - Copy the file on host to the VM
 - `kz sh`
     - SSH connect to the VM
+- `kz zone <name_of_zone>`
+- `kz switch <fs_name>`
+  - After creating/modifying the filesystem, you are able to backup them in a fs_<name> folder under scripts
+  - kz switch gonna load the provided fs
 
 
 # Tips for Kernel Debugging
@@ -132,8 +138,7 @@ sudo ./kz run
 ```
 
 
-# TODO
-- support lower versions of kernel
+
 
 [1]: https://github.com/sefcom/RetSpill
 [2]: https://github.com/sefcom/KHeaps
