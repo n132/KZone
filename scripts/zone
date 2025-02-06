@@ -1,21 +1,52 @@
 #!/bin/bash
 
+help() {
+    cat <<EOF
+Usage: $(basename "$0") <Zone_Name> [Kernel_Version]
+
+Arguments:
+  Zone_Name         Name of the zone to create. This is required.
+  Kernel_Version    (Optional) Specify the kernel version to use. 
+                    If the specified kernel is not found, you will be prompted 
+                    to download and compile it.
+
+Description:
+  This script creates a zone by copying a template directory. If a kernel version 
+  is provided and not already built, the script can download and compile it. 
+  The script also updates the Makefile with the correct kernel directory.
+
+Options:
+  -h, --help        Display this help message and exit.
+
+Examples:
+  $(basename "$0") my_zone
+  $(basename "$0") my_zone v6.11
+
+EOF
+}
+
+# Handle help option
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    help
+    exit 0
+fi
+
 DIR=$(dirname $(realpath -s $0))
 PDIR=$(dirname $DIR)
 # set -x
 if [ -z $1 ];
 then
-    echo "Missing Zone Name"
-    exit
+    help
+    exit 0
 else
     ZN=$1
 fi
 
 if [ -d $PDIR/$ZN ]; then
-  echo "Folder exists"
-  exit
+    help
+    exit 0
 else
-  cp  -a $PDIR/template $PDIR/$ZN
+    cp  -a $PDIR/template $PDIR/$ZN
 fi
 
 if [ -z $2 ]; then 
