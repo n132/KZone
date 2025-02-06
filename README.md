@@ -17,6 +17,7 @@ cd KZone
 Use the [script][3] to create an image. 
 
 ```bash
+cd scripts
 # you may need
 # sudo apt install debootstrap
 ./create-image.sh --distribution bookworm
