@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# set -x
+if [ -z $1 ];
+then
+    echo "Missing arg"
+    exit
+else
+
+    FS_NAME=$1
+
+fi
+DIR=$(dirname $(realpath -s $0))
+
+# back up previous fs
+rm -rf $DIR/tmp
+mkdir $DIR/tmp
+mv $DIR/*.id_rsa $DIR/tmp
+mv $DIR/*.id_rsa.pub $DIR/tmp
+mv $DIR/*.img $DIR/tmp
+
+cp $DIR/$FS_NAME/* $DIR

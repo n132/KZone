@@ -21,6 +21,9 @@ case "$1" in
     "pull")
         $SCRIPT_DIR/pull $2
         ;;
+    "switch")
+        $SCRIPT_DIR/switch $2
+        ;;
     *)
         echo "Invalid option or option not provided."
         echo "Usage: $0 <run|sh>"
