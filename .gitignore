@@ -3,16 +3,7 @@ scripts/*.img
 scripts/*.id_rsa
 scripts/*.id_rsa.pub
 scripts/fs_*
-zone/bzImage*
-zone/vmlinux*
 tmp
-zone/module/*.cmd
-zone/module/*.ko
-zone/module/*.o
-zone/module/*.mod
-zone/module/*.mod.c
-zone/module/Module.symvers
-zone/module/modules.order
 .gdb_*
 .vscode
 main
