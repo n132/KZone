@@ -2,6 +2,7 @@ scripts/chroot
 scripts/*.img
 scripts/*.id_rsa
 scripts/*.id_rsa.pub
+scripts/fs_*
 zone/bzImage*
 zone/vmlinux*
 tmp
