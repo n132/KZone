@@ -1,16 +1,16 @@
 #!/bin/bash
 
 # set -x
+DIR=$(dirname $(realpath -s $0))
+
 if [ -z $1 ];
 then
     echo "Missing arg"
     exit
 else
-
     FS_NAME=$1
-
 fi
-DIR=$(dirname $(realpath -s $0))
+
 
 # back up previous fs
 rm -rf $DIR/tmp
