@@ -1,54 +1,18 @@
 # KZone
 
-A Play Ground for Learning Kernel. The infrastructure to play with the Linux kernel.
+KZone is a playground for learning and experimenting with the Linux kernel. This infrastructure allows you to write, compile, and debug kernel modules with ease.
 
-You can write and compile your kernel module to debug some features you are interested at with this repository.
-
-
-I steal the scripts from [RetSpill][1] and [KHeap][2]
+Parts of the scripts were adapted from RetSpill and KHeap.
 
 
+# Getting Started
 
-# How to use this repo 
-
-Create an Image
-
-```bash
-cd scripts && ./create-image.sh && popd
+```sh
+git clone https://github.com/n132/KZone.git
+cd KZone
 ```
 
-Compile the Linux Kernel
-
-```bash
-cd kernel && ./build.sh v6.6.66
-cp ./kernel-v6.6.66/arch/x86/boot/bzImage ../zone
-cp ./kernel-v6.6.66/vmlinux ../zone
-popd
-```
-
-Spawn a qemu vm with the compiled kernel:
-
-```bash
-cd zone
-./kz
-```
-
-Compile your kernel modules
-
-```bash
-cd zone/module/
-make
-popd
-```
-
-Play with your modules
-
-```bash
-cd zone
-./kz cp ./module/ko_n132.ko
-```
-
-# Create an Image
+## Create an Image
 
 Use the [script][3] to create an image. 
 
@@ -58,84 +22,32 @@ Use the [script][3] to create an image.
 ./create-image.sh --distribution bookworm
 ```
 
-You can `mount` and `umount` to modify the image:
-
+## Create the zone
 ```bash
-sudo mount ./bookworm.img /mnt/
-# Modify the content of the image
-sudo umount  /mnt/
+kz zone zone_v6.13 v6.13
+cd zone_v6.13
+kz run
 ```
 
-# Compile Linux Kernel
+# Using kz
 
+The kz command provides several sub-commands to manage the virtual machine.
 
-Use this [script][4] to compile the kernel.
+# Commands
+- kz (or kz run):
+Starts a VM using the first disk image ($(pwd)/img/*.img) and the first kernel image ($(pwd)/bzImage).
 
-Example, `./build.sh v5.4.268`.
+- kz cp <host_file>:
+Copies a file from the host machine to the VM.
 
-Sometimes (v5.4.268 is fine) you need to patch the default config for some new versions or compile the modules: You may need to compile the modules and copy them to the disk imge, which may also require you to expand your disk image to store these compiled modules: aka modify the script and recreate the disk. Kindly attach the commands you may need if you really want to use the oldconfig:
+- kz sh:
+Connects to the VM shell using SSH.
 
-```bash
-make CC=clang -j$(nproc) modules_install INSTALL_MOD_PATH=$where_you_mount_the_disk_img
-```
+- kz zone <name_of_zone> <kernel_version>:
+Create a zone for a specific kernel
 
-# kz
-
-`kz` support several sub-commands. This section introduce the usage of them.
-
-# Spawn a VM
-- `kz` 
-    - Same as `kz run`
-- `kz run`
-    - Start a VM 
-    - Using the fist disk image at `$(pwd)/img/*.img`
-    - Using the first Kernel Image at `$(pwd)/bzImage`
-- `kz cp <host_file>`
-    - Copy the file on host to the VM
-- `kz sh`
-    - SSH connect to the VM
-- `kz zone <name_of_zone>`
-- `kz switch <fs_name>`
-  - After creating/modifying the filesystem, you are able to backup them in a fs_<name> folder under scripts
-  - kz switch gonna load the provided fs
-
-
-# Tips for Kernel Debugging
-
-## vmlinux
-
-- Using `gdb vmlinux` to debug the kernel makes life easier
-- If you compile the kernel with keeping debug symbols, you'll find vmlinux at the root of source directory
-
-
-## extract-vmlinux
-
-- [extract-vmlinux][5] is a tool that extract vmlinux from bzImage.
-- Usgae: `extract-vmlinux ./bzImage > vmlinux.raw`
-
-## vmlinux-to-elf
-
-- A [tool][6] to recover symbols from `kallsyms`
-- Installation: `pip3 install --upgrade git+https://github.com/marin-m/vmlinux-to-elf`
-- Usage: `vmlinux-to-elf ./vmlinux.raw vmlinux`
-
-## Template of x.sh
-Format: .img
-```bash
-#!/bin/sh
-gcc ./fs/exp.c -masm=intel -o ./fs/exp -lx -lpthread --static -w &&\
-echo "[+] Compile - Done" &&\
-cd /home/n132/tap/KZone/scripts
-sudo mount buster.img fs
-sleep .5
-cp /home/n132/tap/KZone/zone/fs/exp /home/n132/tap/KZone/scripts/fs
-sudo umount fs
-cd /home/n132/tap/KZone/zone/
-echo "[+] repacking - Done" &&\
-echo "[+] Filesystem - Done" &&\
-echo "[...] run.sh" &&\
-sudo ./kz run
-```
+- kz switch <fs_name>:
+Switches the VM filesystem to a backup stored in a fs_<name> directory under scripts.
 
 
 
@@ -146,3 +58,44 @@ sudo ./kz run
 [4]: ./kernel/build.sh
 [5]: https://github.com/torvalds/linux/blob/master/scripts/extract-vmlinux
 [6]: https://github.com/marin-m/vmlinux-to-elf
+
+
+
+# More
+
+## Modify Image (Optional)
+You can `mount` and `umount` to modify the image:
+
+```bash
+sudo mount ./bookworm.img /mnt/
+# Modify the content of the image
+sudo umount  /mnt/
+```
+
+
+## Compile Kernel (optional)
+
+Use this [script][4] to compile the kernel.
+
+Example, `./build.sh v6.6.66`.
+
+```bash
+cd kernel && ./build.sh v6.6.66
+cp ./kernel-v6.6.66/arch/x86/boot/bzImage ../zone
+cp ./kernel-v6.6.66/vmlinux ../zone
+popd
+```
+
+Sometimes (v6.6.66 is fine) you need to patch the default config for some new versions or compile the modules: You may need to compile the modules and copy them to the disk imge, which may also require you to expand your disk image to store these compiled modules: aka modify the script and recreate the disk. Kindly attach the commands you may need if you really want to use the oldconfig:
+
+```bash
+make CC=clang -j$(nproc) modules_install INSTALL_MOD_PATH=$where_you_mount_the_disk_img
+```
+
+
+## Compile Kernel Modules (optional)
+
+```bash
+cd <your_zone>/module/
+make
+```
