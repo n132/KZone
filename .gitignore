@@ -11,8 +11,7 @@ tmp
 !kernel/build.sh
 kernel/kernel-*
 kernel/linux-*
-log*
+log.txt
 x.sh
 dbg
-zone/module/ko_n132.c
 zone*/
