@@ -53,6 +53,8 @@ cd zone
 Use the [script][3] to create an image. 
 
 ```bash
+# you may need
+# sudo apt install debootstrap
 ./create-image.sh --distribution bookworm
 ```
 
