@@ -25,3 +25,4 @@ log*
 x.sh
 dbg
 zone/module/ko_n132.c
+zone*
