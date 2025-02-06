@@ -8,7 +8,6 @@ scripts/fs_*
 tmp
 .gdb_*
 .vscode
-!kernel/build.sh
 kernel/kernel-*
 kernel/linux-*
 log.txt
