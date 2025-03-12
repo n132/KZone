@@ -54,7 +54,7 @@ case "$1" in
         ;;
     "switch")
         shift
-        $SCRIPT_DIR/switch "$@"
+        $SCRIPT_DIR/switch_filesystem "$@"
         ;;
     "zone")
         shift
