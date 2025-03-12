@@ -52,7 +52,7 @@ fi
 # init memory size
 if [ -z $3 ];
 then
-	MEM_SIZE=32G
+	MEM_SIZE=3.5G
 else
 	MEM_SIZE=$3
 fi
@@ -100,12 +100,11 @@ qemu-system-x86_64 \
    --snapshot \
    -kernel $KERNEL \
    -hda $IMAGE \
-   -append "console=ttyS0 root=/dev/sda debug earlyprintk=serial panic=1000 oops=panic nokaslr selinux=0 nopti tsc=unstable net.ifnames=0" \
+   -append "console=ttyS0 root=/dev/sda debug earlyprintk=serial panic=1000 oops=panic nokaslr selinux=0 pti=off tsc=unstable net.ifnames=0" \
    -nographic \
    -m $MEM_SIZE \
    -monitor tcp:127.0.0.1:45454,server,nowait \
    -smp cores=$CORE_NUM,threads=1 \
-   -enable-kvm \
    -cpu qemu64,-smap,-smep \
    -s -D ./log.txt \
    -net nic -net user,hostfwd=tcp::${SSH_PORT}-:22 \
